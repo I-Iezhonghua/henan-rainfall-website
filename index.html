@@ -170,7 +170,7 @@
             initLineChart();
         });
 
-        // 初始化地图 - 修复版本（仅修复地图加载问题，保持原有样式）
+        // 初始化地图 - 修复版本
         function initMap() {
             const mapChart = echarts.init(document.getElementById('mapChart'));
             
@@ -179,7 +179,7 @@
             
             // 尝试多个地图数据源
             const mapSources = [
-                'https://cdn.jsdelivr.net/npm/echarts@5.4.3/map/json/province/henan.json',
+                'https://geo.datav.aliyun.com/areas_v3/bound/410000.json',
                 'https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json'
             ];
             
@@ -221,7 +221,7 @@
             tryLoadMap(0);
         }
 
-        // 绘制地图 - 保持原有样式
+        // 绘制地图
         function drawMap(type, mapChart) {
             const data = getMapData(type);
             const title = getMapTitle(type);
@@ -310,7 +310,7 @@
             console.log(`地图已更新，显示类型: ${title}`);
         }
 
-        // 备用方案：散点图 - 保持原有样式
+        // 备用方案：散点图
         function drawBackupMap(mapChart) {
             const data = getMapData('average');
             const title = '降水量均值';
@@ -327,7 +327,7 @@
                 '焦作市': [113.24, 35.22],
                 '濮阳市': [115.03, 35.76],
                 '许昌市': [113.85, 34.04],
-                '漯漯河市': [114.02, 33.58],
+                '漯河市': [114.02, 33.58],  // 修正：漯漯河市 -> 漯河市
                 '三门峡市': [111.20, 34.77],
                 '南阳市': [112.53, 32.99],
                 '商丘市': [115.66, 34.41],
@@ -380,7 +380,7 @@
             console.log('使用备用地图方案');
         }
 
-        // 初始化折线图 - 保持原有样式
+        // 初始化折线图
         function initLineChart() {
             const lineChart = echarts.init(document.getElementById('lineChart'));
             
@@ -391,7 +391,7 @@
             window.lineChartInstance = lineChart;
         }
 
-        // 绘制折线图 - 保持原有样式
+        // 绘制折线图
         function drawLineChart(type, lineChart) {
             const data = getLineData(type);
             const years = getYears();
@@ -459,7 +459,7 @@
             console.log(`折线图已更新，显示类型: ${title}`);
         }
 
-        // 切换地图数据 - 保持原有功能
+        // 切换地图数据
         function changeMapData(type) {
             // 更新按钮状态
             const mapButtons = document.querySelectorAll('.chart-section:first-child .control-btn');
@@ -472,7 +472,7 @@
             }
         }
 
-        // 切换折线图数据 - 保持原有功能
+        // 切换折线图数据
         function changeLineData(type) {
             // 更新按钮状态
             const lineButtons = document.querySelectorAll('.chart-section:last-child .control-btn');
@@ -485,7 +485,7 @@
             }
         }
 
-        // 数据函数 - 保持原有数据
+        // 数据函数
         function getMapData(type) {
             const data = {
                 average: [
@@ -499,7 +499,7 @@
                     {name: '焦作市', value: 610.9},
                     {name: '濮阳市', value: 520.3},
                     {name: '许昌市', value: 680.1},
-                    {name: '漯漯河市', value: 670.5},
+                    {name: '漯河市', value: 670.5},  // 修正：漯漯河市 -> 漯河市
                     {name: '三门峡市', value: 580.2},
                     {name: '南阳市', value: 890.7},
                     {name: '商丘市', value: 720.4},
@@ -519,7 +519,7 @@
                     {name: '焦作市', value: 410.9},
                     {name: '濮阳市', value: 320.3},
                     {name: '许昌市', value: 480.1},
-                    {name: '漯漯河市', value: 470.5},
+                    {name: '漯河市', value: 470.5},  // 修正：漯漯河市 -> 漯河市
                     {name: '三门峡市', value: 380.2},
                     {name: '南阳市', value: 690.7},
                     {name: '商丘市', value: 520.4},
@@ -539,7 +539,7 @@
                     {name: '焦作市', value: 810.9},
                     {name: '濮阳市', value: 720.3},
                     {name: '许昌市', value: 880.1},
-                    {name: '漯漯河市', value: 870.5},
+                    {name: '漯河市', value: 870.5},  // 修正：漯漯河市 -> 漯河市
                     {name: '三门峡市', value: 780.2},
                     {name: '南阳市', value: 1090.7},
                     {name: '商丘市', value: 920.4},
@@ -576,4 +576,19 @@
         }
 
         function getYears() {
-            return [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982
+            return [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+        }
+
+        function getLineTitle(type) {
+            const titles = {
+                'precipitation': '降水日',
+                'lightRain': '小雨',
+                'moderateRain': '中雨',
+                'heavyRain': '大雨',
+                'storm': '暴雨'
+            };
+            return titles[type] || '降水日';
+        }
+    </script>
+</body>
+</html>
