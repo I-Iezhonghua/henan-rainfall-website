@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px; /* 从1200px改为1400px，给地图更多空间 */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+}
+
+.header {
+    text-align: center;
+    padding: 30px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eaeaea;
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* 添加渐变背景 */
+    color: white; /* 文字改为白色 */
+    border-radius: 10px; /* 添加圆角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: white; /* 改为白色以匹配背景 */
+    font-weight: 600;
+    margin-bottom: 10px; /* 添加底部间距 */
+}
+
+.chart-section {
+    margin-bottom: 60px;
+    padding: 25px; /* 增加内边距 */
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+.chart-section:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* 悬停时加深阴影 */
+}
+
+.section-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px; /* 添加底部内边距 */
+    border-bottom: 2px solid #ecf0f1; /* 添加分割线 */
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.control-btn {
+    padding: 10px 22px;
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn:hover {
+    background-color: #d5dbdb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn.active {
+    background-color: #3498db; /* 改为蓝色，更符合地图主题 */
+    color: white;
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.chart {
+    width: 100%;
+    height: 600px; /* 增加高度，给地图更多空间 */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border: 1px solid #eaeaea;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+    border-top: 1px solid #eaeaea;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* 确保地图容器有正确的尺寸 */
+#mapChart, #lineChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 加载动画样式 */
+.echarts-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #3498db;
+}
+
+/* 工具提示样式优化 */
+.echarts-tooltip {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        max-width: 100%; /* 在小屏幕上使用全宽 */
+    }
+    
+    .header {
+        padding: 20px 0;
+        margin-bottom: 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .chart-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .controls {
+        justify-content: center;
+        gap: 8px; /* 缩小间距 */
+    }
+    
+    .control-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .chart {
+        height: 400px; /* 在小屏幕上减小高度 */
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .chart {
+        height: 350px; /* 在更小屏幕上进一步减小高度 */
+    }
+    
+    .controls {
+        flex-direction: column; /* 在小屏幕上垂直排列按钮 */
+        align-items: center;
+    }
+    
+    .control-btn {
+        width: 100%; /* 让按钮占满宽度 */
+        max-width: 250px; /* 但限制最大宽度 */
+    }
+}
+
+/* 确保ECharts容器正确显示 */
+.echarts-container {
+    width: 100% !important;
+    height: 100% !important;
+}
