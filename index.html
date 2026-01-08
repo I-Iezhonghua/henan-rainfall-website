@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>河南省降水数据分析</title>
-    <!-- 使用正确的ECharts CDN -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         * {
@@ -119,12 +118,10 @@
 </head>
 <body>
     <div class="container">
-        <!-- 标题 -->
         <header class="header">
             <h1>河南省降水数据分析</h1>
         </header>
         
-        <!-- 第一部分：地图 -->
         <section class="chart-section">
             <div class="section-header">
                 <h2>2023年河南省各市降水量分布</h2>
@@ -137,7 +134,6 @@
             <div id="mapChart" class="chart"></div>
         </section>
         
-        <!-- 第二部分：折线图 -->
         <section class="chart-section">
             <div class="section-header">
                 <h2>河南省历年降水日数变化 (1961-2023)</h2>
@@ -152,7 +148,6 @@
             <div id="lineChart" class="chart"></div>
         </section>
         
-        <!-- 页脚 -->
         <footer class="footer">
             <p>数据来源：国家统计局 | 可视化工具：ECharts | 制作人：贺中花 202528007610006</p>
         </footer>
@@ -177,48 +172,27 @@
             // 显示加载动画
             mapChart.showLoading();
             
-            // 尝试多个地图数据源
-            const mapSources = [
-                'https://geo.datav.aliyun.com/areas_v3/bound/410000.json',
-                'https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json'
-            ];
-            
-            let currentSourceIndex = 0;
-            
-            function tryLoadMap(sourceIndex) {
-                if (sourceIndex >= mapSources.length) {
-                    // 所有源都失败，使用备用方案
-                    console.error('所有地图数据源都加载失败，使用散点图备用方案');
+            // 尝试加载地图数据
+            fetch('https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应不正常');
+                    }
+                    return response.json();
+                })
+                .then(geoJson => {
+                    // 注册地图
+                    echarts.registerMap('henan', geoJson);
                     mapChart.hideLoading();
+                    drawMap('average', mapChart);
+                    window.mapChartInstance = mapChart;
+                })
+                .catch(error => {
+                    console.error('加载地图数据失败:', error);
+                    mapChart.hideLoading();
+                    // 使用备用方案
                     drawBackupMap(mapChart);
-                    return;
-                }
-                
-                const source = mapSources[sourceIndex];
-                console.log('尝试加载地图数据源:', source);
-                
-                fetch(source)
-                    .then(response => {
-                        if (!response.ok) throw new Error('网络响应不正常');
-                        return response.json();
-                    })
-                    .then(geoJson => {
-                        // 注册地图
-                        echarts.registerMap('henan', geoJson);
-                        mapChart.hideLoading();
-                        drawMap('average', mapChart);
-                        window.mapChartInstance = mapChart;
-                        console.log('地图数据加载成功，来源:', source);
-                    })
-                    .catch(error => {
-                        console.warn('地图数据源失败:', source, error);
-                        // 尝试下一个数据源
-                        tryLoadMap(sourceIndex + 1);
-                    });
-            }
-            
-            // 开始尝试加载
-            tryLoadMap(0);
+                });
         }
 
         // 绘制地图
@@ -307,7 +281,6 @@
             };
             
             mapChart.setOption(option, true);
-            console.log(`地图已更新，显示类型: ${title}`);
         }
 
         // 备用方案：散点图
@@ -340,7 +313,12 @@
             const option = {
                 title: {
                     text: `2023年河南省各市${title}`,
-                    left: 'center'
+                    left: 'center',
+                    textStyle: {
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#2c3e50'
+                    }
                 },
                 tooltip: {
                     trigger: 'item',
@@ -377,17 +355,12 @@
             };
             
             mapChart.setOption(option);
-            console.log('使用备用地图方案');
         }
 
         // 初始化折线图
         function initLineChart() {
             const lineChart = echarts.init(document.getElementById('lineChart'));
-            
-            // 绘制折线图
             drawLineChart('precipitation', lineChart);
-            
-            // 保存折线图实例到全局变量
             window.lineChartInstance = lineChart;
         }
 
@@ -456,17 +429,14 @@
             };
             
             lineChart.setOption(option, true);
-            console.log(`折线图已更新，显示类型: ${title}`);
         }
 
         // 切换地图数据
         function changeMapData(type) {
-            // 更新按钮状态
             const mapButtons = document.querySelectorAll('.chart-section:first-child .control-btn');
             mapButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // 更新地图
             if (window.mapChartInstance) {
                 drawMap(type, window.mapChartInstance);
             }
@@ -474,12 +444,10 @@
 
         // 切换折线图数据
         function changeLineData(type) {
-            // 更新按钮状态
             const lineButtons = document.querySelectorAll('.chart-section:last-child .control-btn');
             lineButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // 更新折线图
             if (window.lineChartInstance) {
                 drawLineChart(type, window.lineChartInstance);
             }
@@ -564,31 +532,6 @@
 
         function getLineData(type) {
             const allData = {
-                years: [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
                 precipitation: [110, 105, 120, 115, 108, 98, 112, 118, 122, 116, 119, 107, 113, 121, 125, 109, 114, 117, 123, 111, 106, 124, 118, 115, 119, 107, 113, 121, 116, 109, 114, 122, 118, 111, 125, 108, 119, 127, 115, 112, 121, 109, 117, 123, 114, 118, 125, 111, 119, 122, 116, 108, 121, 115, 118, 124, 112, 119, 126, 114, 121, 118, 125],
                 lightRain: [60, 58, 65, 62, 59, 55, 61, 64, 67, 63, 65, 58, 62, 66, 68, 59, 63, 64, 67, 60, 58, 68, 64, 62, 65, 58, 62, 66, 63, 59, 63, 67, 64, 60, 68, 59, 65, 69, 62, 61, 66, 59, 64, 67, 63, 64, 68, 60, 65, 67, 63, 59, 66, 62, 64, 68, 61, 65, 69, 63, 66, 64, 68],
-                moderateRain: [30, 28, 35, 32, 29, 25, 31, 34, 37, 33, 35, 28, 32, 36, 38, 29, 33, 34, 37, 30, 28, 38, 34, 32, 35, 28, 32, 36, 33, 29, 33, 37, 34, 30, 38, 29, 35, 39, 32, 31, 36, 29, 34, 37, 33, 34, 38, 30, 35, 37, 33, 29, 36, 32, 34, 38, 31, 35, 39, 33, 36, 34, 38],
-                heavyRain: [15, 13, 18, 16, 14, 12, 16, 17, 19, 15, 17, 13, 16, 18, 20, 14, 16, 17, 19, 15, 13, 19, 17, 16, 17, 13, 16, 18, 15, 14, 16, 19, 17, 15, 20, 14, 17, 21, 16, 15, 18, 14, 17, 19, 16, 17, 20, 15, 17, 19, 16, 14, 18, 16, 17, 20, 15, 17, 21, 16, 18, 17, 20],
-                storm: [5, 6, 7, 5, 6, 6, 7, 8, 9, 5, 6, 8, 7, 6, 9, 7, 8, 9, 10, 6, 7, 9, 8, 5, 7, 8, 6, 9, 5, 7, 8, 9, 7, 6, 10, 6, 8, 11, 5, 5, 9, 7, 8, 10, 6, 8, 11, 6, 7, 9, 5, 6, 9, 5, 8, 10, 5, 8, 12, 6, 9, 7, 11]
-            };
-            
-            return allData[type] || allData.precipitation;
-        }
-
-        function getYears() {
-            return [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
-        }
-
-        function getLineTitle(type) {
-            const titles = {
-                'precipitation': '降水日',
-                'lightRain': '小雨',
-                'moderateRain': '中雨',
-                'heavyRain': '大雨',
-                'storm': '暴雨'
-            };
-            return titles[type] || '降水日';
-        }
-    </script>
-</body>
-</html>
+                moderateRain: [30, 28, 35, 32, 29, 25, 31, 34, 37, 33, 35, 28, 32, 36, 38
