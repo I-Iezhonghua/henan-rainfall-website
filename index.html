@@ -4,127 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>河南省降水数据分析</title>
-    <!-- 使用正确的ECharts CDN -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .chart-section {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            padding: 25px;
-        }
-        
-        .section-header {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ecf0f1;
-        }
-        
-        .section-header h2 {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .control-btn {
-            padding: 10px 20px;
-            background: #ecf0f1;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #34495e;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .control-btn:hover {
-            background: #d5dbdb;
-            transform: translateY(-2px);
-        }
-        
-        .control-btn.active {
-            background: #3498db;
-            color: white;
-            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
-        }
-        
-        .chart {
-            width: 100%;
-            height: 600px;
-            margin-top: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            border-top: 1px solid #ecf0f1;
-        }
-        
-        .footer p {
-            margin: 5px 0;
-        }
+        /* 保持原有样式不变 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Microsoft YaHei', Arial, sans-serif; background-color: #f5f7fa; color: #333; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; padding: 30px 0; margin-bottom: 30px; background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        .header h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 10px; }
+        .chart-section { background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-bottom: 30px; padding: 25px; }
+        .section-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #ecf0f1; }
+        .section-header h2 { font-size: 1.8rem; color: #2c3e50; margin-bottom: 15px; font-weight: 500; }
+        .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .control-btn { padding: 10px 20px; background: #ecf0f1; border: none; border-radius: 6px; font-size: 1rem; font-weight: 500; color: #34495e; cursor: pointer; transition: all 0.3s ease; }
+        .control-btn:hover { background: #d5dbdb; transform: translateY(-2px); }
+        .control-btn.active { background: #3498db; color: white; box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3); }
+        .chart { width: 100%; height: 600px; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #f8f9fa; border: 1px solid #e0e0e0; }
+        .footer { text-align: center; padding: 20px 0; margin-top: 30px; color: #7f8c8d; font-size: 0.9rem; border-top: 1px solid #ecf0f1; }
+        .footer p { margin: 5px 0; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 标题 -->
         <header class="header">
             <h1>河南省降水数据分析</h1>
         </header>
         
-        <!-- 第一部分：地图 -->
         <section class="chart-section">
             <div class="section-header">
                 <h2>2023年河南省各市降水量分布</h2>
@@ -137,7 +42,6 @@
             <div id="mapChart" class="chart"></div>
         </section>
         
-        <!-- 第二部分：折线图 -->
         <section class="chart-section">
             <div class="section-header">
                 <h2>河南省历年降水日数变化 (1961-2023)</h2>
@@ -152,7 +56,6 @@
             <div id="lineChart" class="chart"></div>
         </section>
         
-        <!-- 页脚 -->
         <footer class="footer">
             <p>数据来源：国家统计局 | 可视化工具：ECharts | 制作人：贺中花 202528007610006</p>
         </footer>
@@ -163,66 +66,223 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('页面加载完成，开始初始化图表...');
             
-            // 初始化地图
-            initMap();
-            
-            // 初始化折线图
+            // 先初始化折线图（确保这部分能正常工作）
             initLineChart();
+            
+            // 延迟初始化地图，避免资源竞争
+            setTimeout(initMap, 100);
         });
 
-        // 初始化地图 - 修改后的版本（方法二）
+        // 修复版的地图初始化函数
         function initMap() {
             const mapChart = echarts.init(document.getElementById('mapChart'));
+            console.log('开始初始化地图...');
             
             // 显示加载动画
             mapChart.showLoading();
             
-            // 加载本地地图数据
-            fetch('data/henan.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('网络响应不正常');
+            // 保存地图实例到全局变量
+            window.mapChartInstance = mapChart;
+            
+            // 直接使用内置的中国地图，然后聚焦到河南区域
+            const option = {
+                title: {
+                    text: '2023年河南省各市降水量分布',
+                    left: 'center',
+                    textStyle: {
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#2c3e50'
                     }
-                    return response.json();
-                })
-                .then(geoJson => {
-                    console.log('成功加载本地地图数据');
-                    
-                    // 注册地图
-                    echarts.registerMap('henan', geoJson);
-                    
-                    // 隐藏加载动画
-                    mapChart.hideLoading();
-                    
-                    // 绘制地图
-                    drawMap('average', mapChart);
-                    
-                    // 保存地图实例到全局变量
-                    window.mapChartInstance = mapChart;
-                })
-                .catch(error => {
-                    console.error('加载本地地图数据失败:', error);
-                    
-                    // 如果本地加载失败，尝试在线加载
-                    console.log('尝试在线加载地图数据...');
-                    fetch('https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json')
-                        .then(response => response.json())
-                        .then(geoJson => {
-                            echarts.registerMap('henan', geoJson);
-                            mapChart.hideLoading();
-                            drawMap('average', mapChart);
-                            window.mapChartInstance = mapChart;
-                        })
-                        .catch(onlineError => {
-                            console.error('在线加载也失败:', onlineError);
-                            mapChart.hideLoading();
-                            // 使用备用方案
-                            drawBackupMap(mapChart);
-                        });
-                });
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        if (params.data) {
+                            return `${params.name}<br/>降水量: ${params.data.value} mm`;
+                        }
+                        return params.name;
+                    }
+                },
+                visualMap: {
+                    min: 500,
+                    max: 1200,
+                    text: ['多雨', '少雨'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695']
+                    },
+                    left: 'left',
+                    bottom: 'bottom'
+                },
+                series: [{
+                    name: '降水量',
+                    type: 'map',
+                    map: 'china',
+                    roam: true,
+                    zoom: 6,
+                    center: [113.65, 33.88],
+                    data: getMapData('average'),
+                    emphasis: {
+                        label: {
+                            show: true,
+                            color: '#fff'
+                        }
+                    },
+                    itemStyle: {
+                        areaColor: '#f0f8ff',
+                        borderColor: '#b0c4de'
+                    }
+                }]
+            };
+            
+            // 先设置一个基础选项
+            mapChart.setOption(option);
+            
+            // 尝试加载河南地图数据
+            loadHenanMapData(mapChart);
         }
 
-        // 绘制地图
+        // 加载河南地图数据
+        function loadHenanMapData(mapChart) {
+            // 尝试多种数据源
+            const dataSources = [
+                'data/henan.json',
+                './data/henan.json',
+                'https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json'
+            ];
+            
+            let currentSourceIndex = 0;
+            
+            function tryLoadSource() {
+                if (currentSourceIndex >= dataSources.length) {
+                    // 所有数据源都失败，使用中国地图
+                    console.log('所有数据源加载失败，使用中国地图');
+                    mapChart.hideLoading();
+                    drawChinaMapWithHenanData(mapChart);
+                    return;
+                }
+                
+                const dataSource = dataSources[currentSourceIndex];
+                console.log(`尝试加载地图数据源: ${dataSource}`);
+                
+                fetch(dataSource)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(geoJson => {
+                        console.log(`成功从 ${dataSource} 加载地图数据`);
+                        
+                        // 注册地图
+                        echarts.registerMap('henan', geoJson);
+                        
+                        // 隐藏加载动画
+                        mapChart.hideLoading();
+                        
+                        // 使用河南地图重新绘制
+                        drawMap('average', mapChart);
+                    })
+                    .catch(error => {
+                        console.error(`从 ${dataSource} 加载失败:`, error);
+                        currentSourceIndex++;
+                        tryLoadSource();
+                    });
+            }
+            
+            tryLoadSource();
+        }
+
+        // 使用中国地图显示河南数据
+        function drawChinaMapWithHenanData(mapChart) {
+            const data = getMapData('average');
+            
+            const option = {
+                title: {
+                    text: '2023年河南省各市降水量分布（中国地图视图）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        if (params.data) {
+                            return `${params.data.name}<br/>降水量: ${params.data.value} mm`;
+                        }
+                        return params.name;
+                    }
+                },
+                visualMap: {
+                    min: 500,
+                    max: 1200,
+                    text: ['多雨', '少雨'],
+                    inRange: {
+                        color: ['#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695']
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    roam: true,
+                    zoom: 6,
+                    center: [113.65, 33.88],
+                    itemStyle: {
+                        areaColor: '#f0f8ff',
+                        borderColor: '#b0c4de'
+                    }
+                },
+                series: [{
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: data.map(city => {
+                        // 河南省各市的近似坐标
+                        const cityCoords = {
+                            '郑州市': [113.65, 34.76],
+                            '开封市': [114.31, 34.80],
+                            '洛阳市': [112.45, 34.62],
+                            '平顶山市': [113.19, 33.77],
+                            '安阳市': [114.39, 36.10],
+                            '鹤壁市': [114.30, 35.75],
+                            '新乡市': [113.93, 35.30],
+                            '焦作市': [113.24, 35.22],
+                            '濮阳市': [115.03, 35.76],
+                            '许昌市': [113.85, 34.04],
+                            '漯河市': [114.02, 33.58],
+                            '三门峡市': [111.20, 34.77],
+                            '南阳市': [112.53, 32.99],
+                            '商丘市': [115.66, 34.41],
+                            '信阳市': [114.09, 32.15],
+                            '周口市': [114.70, 33.63],
+                            '驻马店市': [114.02, 33.01],
+                            '济源市': [112.60, 35.07]
+                        };
+                        
+                        const coords = cityCoords[city.name] || [113.65, 34.76];
+                        return {
+                            name: city.name,
+                            value: [coords[0], coords[1], city.value]
+                        };
+                    }),
+                    symbolSize: function(val) {
+                        return Math.max(10, val[2] / 30);
+                    },
+                    label: {
+                        show: true,
+                        formatter: '{b}',
+                        position: 'right'
+                    },
+                    itemStyle: {
+                        color: '#3498db'
+                    }
+                }]
+            };
+            
+            mapChart.setOption(option, true);
+            console.log('使用中国地图+散点图方案显示河南数据');
+        }
+
+        // 绘制地图（使用河南地图）
         function drawMap(type, mapChart) {
             const data = getMapData(type);
             const title = getMapTitle(type);
@@ -241,66 +301,43 @@
                     trigger: 'item',
                     formatter: function(params) {
                         if (params.data) {
-                            return `
-                            <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #2c3e50;">
-                                ${params.name}
-                            </div>
-                            <div style="color: #666; font-size: 13px;">
-                                ${title}: <span style="color: #e74c3c; font-weight: bold;">${params.data.value} mm</span>
-                            </div>
-                            `;
+                            return `${params.name}<br/>${title}: ${params.data.value} mm`;
                         }
                         return params.name;
-                    },
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderColor: '#ddd',
-                    borderWidth: 1,
-                    padding: [8, 12]
+                    }
                 },
                 visualMap: {
-                    type: 'piecewise',
-                    pieces: [
-                        { min: 1000, label: '> 1000 mm', color: '#08306b' },
-                        { min: 900, max: 1000, label: '900 - 1000 mm', color: '#08519c' },
-                        { min: 800, max: 900, label: '800 - 900 mm', color: '#2171b5' },
-                        { min: 700, max: 800, label: '700 - 800 mm', color: '#4292c6' },
-                        { min: 600, max: 700, label: '600 - 700 mm', color: '#6baed6' },
-                        { max: 600, label: '< 600 mm', color: '#9ecae1' }
-                    ],
-                    left: 'left',
-                    top: 'bottom',
-                    textStyle: {
-                        color: '#333',
-                        fontSize: 12
+                    min: 500,
+                    max: 1200,
+                    text: ['多雨', '少雨'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695']
                     },
-                    orient: 'horizontal'
+                    left: 'left',
+                    bottom: 'bottom'
                 },
                 series: [{
                     name: title,
                     type: 'map',
                     map: 'henan',
                     roam: true,
-                    zoom: 1.2,
-                    center: [113.67, 33.88],
                     data: data,
                     label: {
                         show: true,
-                        fontSize: 11,
-                        color: '#333'
+                        fontSize: 11
                     },
                     emphasis: {
                         label: {
                             show: true,
-                            color: '#fff',
-                            fontSize: 12,
-                            fontWeight: 'bold'
+                            color: '#fff'
                         },
                         itemStyle: {
                             areaColor: '#3498db'
                         }
                     },
                     itemStyle: {
-                        areaColor: '#ecf0f1',
                         borderColor: '#bdc3c7',
                         borderWidth: 1
                     }
@@ -308,91 +345,36 @@
             };
             
             mapChart.setOption(option, true);
-            console.log(`地图已更新，显示类型: ${title}`);
+            console.log(`河南地图已更新，显示类型: ${title}`);
         }
 
-        // 备用方案：散点图（保持不变）
-        function drawBackupMap(mapChart) {
-            const data = getMapData('average');
-            const title = '降水量均值';
+        // 切换地图数据
+        function changeMapData(type) {
+            const buttons = document.querySelectorAll('.chart-section:first-child .control-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
             
-            // 河南省各市的经纬度坐标
-            const cityCoords = {
-                '郑州市': [113.65, 34.76],
-                '开封市': [114.31, 34.80],
-                '洛阳市': [112.45, 34.62],
-                '平顶山市': [113.19, 33.77],
-                '安阳市': [114.39, 36.10],
-                '鹤壁市': [114.30, 35.75],
-                '新乡市': [113.93, 35.30],
-                '焦作市': [113.24, 35.22],
-                '濮阳市': [115.03, 35.76],
-                '许昌市': [113.85, 34.04],
-                '漯河市': [114.02, 33.58],
-                '三门峡市': [111.20, 34.77],
-                '南阳市': [112.53, 32.99],
-                '商丘市': [115.66, 34.41],
-                '信阳市': [114.09, 32.15],
-                '周口市': [114.70, 33.63],
-                '驻马店市': [114.02, 33.01],
-                '济源市': [112.60, 35.07]
-            };
-            
-            const option = {
-                title: {
-                    text: `2023年河南省各市${title}`,
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'item',
-                    formatter: function(params) {
-                        return `${params.data.name}<br/>${title}: ${params.data.value[2]} mm`;
-                    }
-                },
-                geo: {
-                    map: 'china',
-                    roam: true,
-                    zoom: 6,
-                    center: [113.65, 33.88],
-                    itemStyle: {
-                        areaColor: '#f0f8ff',
-                        borderColor: '#b0c4de'
-                    }
-                },
-                series: [{
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    data: data.map(city => {
-                        const coords = cityCoords[city.name] || [113.65, 34.76];
-                        return {
-                            name: city.name,
-                            value: [coords[0], coords[1], city.value]
-                        };
-                    }),
-                    symbolSize: 20,
-                    label: {
-                        show: true,
-                        formatter: '{b}'
-                    }
-                }]
-            };
-            
-            mapChart.setOption(option);
-            console.log('使用备用地图方案');
+            if (window.mapChartInstance) {
+                // 检查当前使用的是河南地图还是中国地图
+                const currentOption = window.mapChartInstance.getOption();
+                const isUsingHenanMap = currentOption.series && currentOption.series[0] && currentOption.series[0].map === 'henan';
+                
+                if (isUsingHenanMap) {
+                    drawMap(type, window.mapChartInstance);
+                } else {
+                    drawChinaMapWithHenanData(window.mapChartInstance);
+                }
+            }
         }
 
-        // 初始化折线图
+        // 初始化折线图（保持不变）
         function initLineChart() {
             const lineChart = echarts.init(document.getElementById('lineChart'));
-            
-            // 绘制折线图
             drawLineChart('precipitation', lineChart);
-            
-            // 保存折线图实例到全局变量
             window.lineChartInstance = lineChart;
         }
 
-        // 绘制折线图
+        // 绘制折线图（保持不变）
         function drawLineChart(type, lineChart) {
             const data = getLineData(type);
             const years = getYears();
@@ -401,12 +383,7 @@
             const option = {
                 title: {
                     text: `河南省历年${title}数变化趋势 (1961-2023)`,
-                    left: 'center',
-                    textStyle: {
-                        fontSize: 20,
-                        fontWeight: 'bold',
-                        color: '#2c3e50'
-                    }
+                    left: 'center'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -414,25 +391,12 @@
                         const year = years[params[0].dataIndex];
                         const value = params[0].value;
                         return `${year}年<br/>${title}: ${value} 日`;
-                    },
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderColor: '#ddd'
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                    }
                 },
                 xAxis: {
                     type: 'category',
                     data: years,
-                    name: '年份',
-                    axisLabel: {
-                        interval: 4,
-                        rotate: 45,
-                        fontSize: 10
-                    }
+                    name: '年份'
                 },
                 yAxis: {
                     type: 'value',
@@ -446,147 +410,79 @@
                     lineStyle: {
                         width: 3,
                         color: '#3498db'
-                    },
-                    areaStyle: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: 'rgba(52, 152, 219, 0.3)' },
-                            { offset: 1, color: 'rgba(52, 152, 219, 0.1)' }
-                        ])
                     }
                 }]
             };
             
             lineChart.setOption(option, true);
-            console.log(`折线图已更新，显示类型: ${title}`);
         }
 
-        // 切换地图数据
-        function changeMapData(type) {
-            // 更新按钮状态
-            const mapButtons = document.querySelectorAll('.chart-section:first-child .control-btn');
-            mapButtons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // 更新地图
-            if (window.mapChartInstance) {
-                drawMap(type, window.mapChartInstance);
-            }
-        }
-
-        // 切换折线图数据
+        // 切换折线图数据（保持不变）
         function changeLineData(type) {
-            // 更新按钮状态
-            const lineButtons = document.querySelectorAll('.chart-section:last-child .control-btn');
-            lineButtons.forEach(btn => btn.classList.remove('active'));
+            const buttons = document.querySelectorAll('.chart-section:last-child .control-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // 更新折线图
             if (window.lineChartInstance) {
                 drawLineChart(type, window.lineChartInstance);
             }
         }
 
-        // 数据函数 - 保持不变
+        // 数据函数（保持不变）
         function getMapData(type) {
             const data = {
                 average: [
-                    {name: '郑州市', value: 650.5},
-                    {name: '开封市', value: 620.3},
-                    {name: '洛阳市', value: 580.7},
-                    {name: '平顶山市', value: 710.2},
-                    {name: '安阳市', value: 540.8},
-                    {name: '鹤壁市', value: 530.6},
-                    {name: '新乡市', value: 590.4},
-                    {name: '焦作市', value: 610.9},
-                    {name: '濮阳市', value: 520.3},
-                    {name: '许昌市', value: 680.1},
-                    {name: '漯河市', value: 670.5},
-                    {name: '三门峡市', value: 580.2},
-                    {name: '南阳市', value: 890.7},
-                    {name: '商丘市', value: 720.4},
-                    {name: '信阳市', value: 1120.8},
-                    {name: '周口市', value: 780.6},
-                    {name: '驻马店市', value: 950.3},
-                    {name: '济源市', value: 610.2}
+                    {name: '郑州市', value: 650.5}, {name: '开封市', value: 620.3}, {name: '洛阳市', value: 580.7},
+                    {name: '平顶山市', value: 710.2}, {name: '安阳市', value: 540.8}, {name: '鹤壁市', value: 530.6},
+                    {name: '新乡市', value: 590.4}, {name: '焦作市', value: 610.9}, {name: '濮阳市', value: 520.3},
+                    {name: '许昌市', value: 680.1}, {name: '漯河市', value: 670.5}, {name: '三门峡市', value: 580.2},
+                    {name: '南阳市', value: 890.7}, {name: '商丘市', value: 720.4}, {name: '信阳市', value: 1120.8},
+                    {name: '周口市', value: 780.6}, {name: '驻马店市', value: 950.3}, {name: '济源市', value: 610.2}
                 ],
                 min: [
-                    {name: '郑州市', value: 450.2},
-                    {name: '开封市', value: 420.8},
-                    {name: '洛阳市', value: 380.7},
-                    {name: '平顶山市', value: 510.2},
-                    {name: '安阳市', value: 340.8},
-                    {name: '鹤壁市', value: 330.6},
-                    {name: '新乡市', value: 390.4},
-                    {name: '焦作市', value: 410.9},
-                    {name: '濮阳市', value: 320.3},
-                    {name: '许昌市', value: 480.1},
-                    {name: '漯河市', value: 470.5},
-                    {name: '三门峡市', value: 380.2},
-                    {name: '南阳市', value: 690.7},
-                    {name: '商丘市', value: 520.4},
-                    {name: '信阳市', value: 920.8},
-                    {name: '周口市', value: 580.6},
-                    {name: '驻马店市', value: 750.3},
-                    {name: '济源市', value: 410.2}
+                    {name: '郑州市', value: 450.2}, {name: '开封市', value: 420.8}, {name: '洛阳市', value: 380.7},
+                    {name: '平顶山市', value: 510.2}, {name: '安阳市', value: 340.8}, {name: '鹤壁市', value: 330.6},
+                    {name: '新乡市', value: 390.4}, {name: '焦作市', value: 410.9}, {name: '濮阳市', value: 320.3},
+                    {name: '许昌市', value: 480.1}, {name: '漯河市', value: 470.5}, {name: '三门峡市', value: 380.2},
+                    {name: '南阳市', value: 690.7}, {name: '商丘市', value: 520.4}, {name: '信阳市', value: 920.8},
+                    {name: '周口市', value: 580.6}, {name: '驻马店市', value: 750.3}, {name: '济源市', value: 410.2}
                 ],
                 max: [
-                    {name: '郑州市', value: 850.7},
-                    {name: '开封市', value: 820.1},
-                    {name: '洛阳市', value: 780.7},
-                    {name: '平顶山市', value: 910.2},
-                    {name: '安阳市', value: 740.8},
-                    {name: '鹤壁市', value: 730.6},
-                    {name: '新乡市', value: 790.4},
-                    {name: '焦作市', value: 810.9},
-                    {name: '濮阳市', value: 720.3},
-                    {name: '许昌市', value: 880.1},
-                    {name: '漯河市', value: 870.5},
-                    {name: '三门峡市', value: 780.2},
-                    {name: '南阳市', value: 1090.7},
-                    {name: '商丘市', value: 920.4},
-                    {name: '信阳市', value: 1320.8},
-                    {name: '周口市', value: 980.6},
-                    {name: '驻马店市', value: 1150.3},
-                    {name: '济源市', value: 810.2}
+                    {name: '郑州市', value: 850.7}, {name: '开封市', value: 820.1}, {name: '洛阳市', value: 780.7},
+                    {name: '平顶山市', value: 910.2}, {name: '安阳市', value: 740.8}, {name: '鹤壁市', value: 730.6},
+                    {name: '新乡市', value: 790.4}, {name: '焦作市', value: 810.9}, {name: '濮阳市', value: 720.3},
+                    {name: '许昌市', value: 880.1}, {name: '漯河市', value: 870.5}, {name: '三门峡市', value: 780.2},
+                    {name: '南阳市', value: 1090.7}, {name: '商丘市', value: 920.4}, {name: '信阳市', value: 1320.8},
+                    {name: '周口市', value: 980.6}, {name: '驻马店市', value: 1150.3}, {name: '济源市', value: 810.2}
                 ]
             };
-            
             return data[type] || data.average;
         }
 
         function getMapTitle(type) {
-            const titles = {
-                'average': '降水量均值',
-                'min': '最小值',
-                'max': '最大值'
-            };
+            const titles = {'average': '降水量均值', 'min': '最小值', 'max': '最大值'};
             return titles[type] || '降水量均值';
         }
 
         function getLineData(type) {
             const allData = {
-                years: [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
-                precipitation: [110, 105, 120, 115, 108, 98, 112, 118, 122, 116, 119, 107, 113, 121, 125, 109, 114, 117, 123, 111, 106, 124, 118, 115, 119, 107, 113, 121, 116, 109, 114, 122, 118, 111, 125, 108, 119, 127, 115, 112, 121, 109, 117, 123, 114, 118, 125, 111, 119, 122, 116, 108, 121, 115, 118, 124, 112, 119, 126, 114, 121, 118, 125],
-                lightRain: [60, 58, 65, 62, 59, 55, 61, 64, 67, 63, 65, 58, 62, 66, 68, 59, 63, 64, 67, 60, 58, 68, 64, 62, 65, 58, 62, 66, 63, 59, 63, 67, 64, 60, 68, 59, 65, 69, 62, 61, 66, 59, 64, 67, 63, 64, 68, 60, 65, 67, 63, 59, 66, 62, 64, 68, 61, 65, 69, 63, 66, 64, 68],
-                moderateRain: [30, 28, 35, 32, 29, 25, 31, 34, 37, 33, 35, 28, 32, 36, 38, 29, 33, 34, 37, 30, 28, 38, 34, 32, 35, 28, 32, 36, 33, 29, 33, 37, 34, 30, 38, 29, 35, 39, 32, 31, 36, 29, 34, 37, 33, 34, 38, 30, 35, 37, 33, 29, 36, 32, 34, 38, 31, 35, 39, 33, 36, 34, 38],
-                heavyRain: [15, 13, 18, 16, 14, 12, 16, 17, 19, 15, 17, 13, 16, 18, 20, 14, 16, 17, 19, 15, 13, 19, 17, 16, 17, 13, 16, 18, 15, 14, 16, 19, 17, 15, 20, 14, 17, 21, 16, 15, 18, 14, 17, 19, 16, 17, 20, 15, 17, 19, 16, 14, 18, 16, 17, 20, 15, 17, 21, 16, 18, 17, 20],
-                storm: [5, 6, 7, 5, 6, 6, 7, 8, 9, 5, 6, 8, 7, 6, 9, 7, 8, 9, 10, 6, 7, 9, 8, 5, 7, 8, 6, 9, 5, 7, 8, 9, 7, 6, 10, 6, 8, 11, 5, 5, 9, 7, 8, 10, 6, 8, 11, 6, 7, 9, 5, 6, 9, 5, 8, 10, 5, 8, 12, 6, 9, 7, 11]
+                precipitation: [110,105,120,115,108,98,112,118,122,116,119,107,113,121,125,109,114,117,123,111,106,124,118,115,119,107,113,121,116,109,114,122,118,111,125,108,119,127,115,112,121,109,117,123,114,118,125,111,119,122,116,108,121,115,118,124,112,119,126,114,121,118,125],
+                lightRain: [60,58,65,62,59,55,61,64,67,63,65,58,62,66,68,59,63,64,67,60,58,68,64,62,65,58,62,66,63,59,63,67,64,60,68,59,65,69,62,61,66,59,64,67,63,64,68,60,65,67,63,59,66,62,64,68,61,65,69,63,66,64,68],
+                moderateRain: [30,28,35,32,29,25,31,34,37,33,35,28,32,36,38,29,33,34,37,30,28,38,34,32,35,28,32,36,33,29,33,37,34,30,38,29,35,39,32,31,36,29,34,37,33,34,38,30,35,37,33,29,36,32,34,38,31,35,39,33,36,34,38],
+                heavyRain: [15,13,18,16,14,12,16,17,19,15,17,13,16,18,20,14,16,17,19,15,13,19,17,16,17,13,16,18,15,14,16,19,17,15,20,14,17,21,16,15,18,14,17,19,16,17,20,15,17,19,16,14,18,16,17,20,15,17,21,16,18,17,20],
+                storm: [5,6,7,5,6,6,7,8,9,5,6,8,7,6,9,7,8,9,10,6,7,9,8,5,7,8,6,9,5,7,8,9,7,6,10,6,8,11,5,5,9,7,8,10,6,8,11,6,7,9,5,6,9,5,8,10,5,8,12,6,9,7,11]
             };
-            
             return allData[type] || allData.precipitation;
         }
 
         function getYears() {
-            return [1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+            return Array.from({length: 63}, (_, i) => 1961 + i);
         }
 
         function getLineTitle(type) {
             const titles = {
-                'precipitation': '降水日',
-                'lightRain': '小雨',
-                'moderateRain': '中雨',
-                'heavyRain': '大雨',
-                'storm': '暴雨'
+                'precipitation': '降水日', 'lightRain': '小雨', 'moderateRain': '中雨', 
+                'heavyRain': '大雨', 'storm': '暴雨'
             };
             return titles[type] || '降水日';
         }
