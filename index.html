@@ -170,17 +170,24 @@
             initLineChart();
         });
 
-        // 初始化地图
+        // 初始化地图 - 修改后的版本（方法二）
         function initMap() {
             const mapChart = echarts.init(document.getElementById('mapChart'));
             
             // 显示加载动画
             mapChart.showLoading();
             
-            // 直接从在线API获取河南省地图数据
-            fetch('https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json')
-                .then(response => response.json())
+            // 加载本地地图数据
+            fetch('data/henan.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应不正常');
+                    }
+                    return response.json();
+                })
                 .then(geoJson => {
+                    console.log('成功加载本地地图数据');
+                    
                     // 注册地图
                     echarts.registerMap('henan', geoJson);
                     
@@ -194,11 +201,24 @@
                     window.mapChartInstance = mapChart;
                 })
                 .catch(error => {
-                    console.error('加载地图数据失败:', error);
-                    mapChart.hideLoading();
+                    console.error('加载本地地图数据失败:', error);
                     
-                    // 如果在线加载失败，使用备用方案：散点图
-                    drawBackupMap(mapChart);
+                    // 如果本地加载失败，尝试在线加载
+                    console.log('尝试在线加载地图数据...');
+                    fetch('https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json')
+                        .then(response => response.json())
+                        .then(geoJson => {
+                            echarts.registerMap('henan', geoJson);
+                            mapChart.hideLoading();
+                            drawMap('average', mapChart);
+                            window.mapChartInstance = mapChart;
+                        })
+                        .catch(onlineError => {
+                            console.error('在线加载也失败:', onlineError);
+                            mapChart.hideLoading();
+                            // 使用备用方案
+                            drawBackupMap(mapChart);
+                        });
                 });
         }
 
@@ -291,7 +311,7 @@
             console.log(`地图已更新，显示类型: ${title}`);
         }
 
-        // 备用方案：散点图
+        // 备用方案：散点图（保持不变）
         function drawBackupMap(mapChart) {
             const data = getMapData('average');
             const title = '降水量均值';
@@ -466,7 +486,7 @@
             }
         }
 
-        // 数据函数
+        // 数据函数 - 保持不变
         function getMapData(type) {
             const data = {
                 average: [
